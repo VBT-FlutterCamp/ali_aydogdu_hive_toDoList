@@ -22,9 +22,12 @@ class _addNoteViewState extends State<addNoteView> {
   String? title;
   String? description;
 
-  Future getImage() async {
-    setState(() async {
-      _image = await ImagePicker.platform.getImage(source: ImageSource.camera);
+  getImage() async {
+    final image =
+        await ImagePicker.platform.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image;
     });
   }
 
@@ -35,7 +38,7 @@ class _addNoteViewState extends State<addNoteView> {
       Hive.box<Note>("note").add(Note(
           title: title ?? "",
           description: description ?? "",
-          imageUrl: _image?.path ?? ""));
+          imageUrl: _image?.path ?? "https://kocel.com.tr/img/notfound.png"));
       Navigator.of(context).pop();
     }
   }
@@ -92,12 +95,7 @@ class _addNoteViewState extends State<addNoteView> {
                 SizedBox(
                   height: 25,
                 ),
-                _image == null
-                    ? Container(
-                        height: 50,
-                        color: Colors.red,
-                      )
-                    : Image.file(File(_image!.path))
+                _image == null ? Container() : Image.file(File(_image!.path))
               ],
             ),
           ),

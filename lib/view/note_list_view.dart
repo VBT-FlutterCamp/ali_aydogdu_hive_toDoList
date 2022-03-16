@@ -53,8 +53,6 @@ class _NoteListViewState extends State<NoteListView> {
                           leading: imageFile == null
                               ? Icon(Icons.image_not_supported_sharp)
                               : imageFile,
-                          /*(Image.file(
-                              File(note?.imageUrl.toString() ?? ""))),*/
                           title: Text(note?.title?.toString() ?? ""),
                           trailing: IconButton(
                               onPressed: () {
