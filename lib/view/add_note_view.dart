@@ -51,7 +51,7 @@ class _addNoteViewState extends State<addNoteView> {
           IconButton(
               onPressed: submitData, icon: const Icon(Icons.save_outlined))
         ],
-        title: Text("Add  a Note"),
+        title: const Text("Add  a Note"),
       ),
       body: SafeArea(
         child: Form(

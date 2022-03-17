@@ -32,6 +32,8 @@ class _NoteListViewState extends State<NoteListView> {
                   final note = box.getAt(i);
                   final Widget? imageFile =
                       Image.file(File(note?.imageUrl.toString() ?? ""));
+                  final Widget? imageNetwork =
+                      Image.network(note?.imageUrl.toString() ?? "");
                   return Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Card(
@@ -50,8 +52,9 @@ class _NoteListViewState extends State<NoteListView> {
                               ),
                             );
                           },
-                          leading: imageFile == null
-                              ? Icon(Icons.image_not_supported_sharp)
+                          leading: note?.imageUrl ==
+                                  "https://kocel.com.tr/img/notfound.png"
+                              ? imageNetwork
                               : imageFile,
                           title: Text(note?.title?.toString() ?? ""),
                           trailing: IconButton(

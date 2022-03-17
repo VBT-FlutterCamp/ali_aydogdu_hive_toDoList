@@ -34,7 +34,9 @@ class noteView extends StatelessWidget {
             Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadiusDirectional.circular(50)),
-                child: Image.file(File(imageUrl ?? ""))),
+                child: imageUrl == "https://kocel.com.tr/img/notfound.png"
+                    ? Image.network("https://kocel.com.tr/img/notfound.png")
+                    : Image.file(File(imageUrl ?? ""))),
           ],
         ),
       )),

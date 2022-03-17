@@ -15,6 +15,6 @@ class Note {
   Note({
     required this.title,
     required this.description,
-    required this.imageUrl,
+    this.imageUrl,
   });
 }
