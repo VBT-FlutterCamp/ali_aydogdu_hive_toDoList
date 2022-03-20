@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:cross_file/cross_file.dart';
 import 'package:images_picker/images_picker.dart';
 import 'package:image_picker/image_picker.dart';
+import '../constants/strings.dart';
+import 'package:kartal/kartal.dart';
 
 import '../models/note.dart';
 
@@ -38,7 +40,7 @@ class _addNoteViewState extends State<addNoteView> {
       Hive.box<Note>("note").add(Note(
           title: title ?? "",
           description: description ?? "",
-          imageUrl: _image?.path ?? "https://kocel.com.tr/img/notfound.png"));
+          imageUrl: _image?.path ?? noImageUrl));
       Navigator.of(context).pop();
     }
   }
@@ -51,7 +53,7 @@ class _addNoteViewState extends State<addNoteView> {
           IconButton(
               onPressed: submitData, icon: const Icon(Icons.save_outlined))
         ],
-        title: const Text("Add  a Note"),
+        title: Text(addANote),
       ),
       body: SafeArea(
         child: Form(
@@ -60,51 +62,67 @@ class _addNoteViewState extends State<addNoteView> {
             padding: const EdgeInsets.all(12.0),
             child: ListView(
               children: [
-                TextFormField(
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    label: Text("Title"),
-                  ),
-                  onChanged: (val) {
-                    setState(() {
-                      if (title == null) {
-                        title = "";
-                      } else {
-                        title = val;
-                      }
-                    });
-                  },
-                ),
-                TextFormField(
-                  minLines: 2,
-                  maxLines: 10,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    label: Text("Description"),
-                  ),
-                  onChanged: (val) {
-                    setState(() {
-                      if (description == null) {
-                        description = "";
-                      } else {
-                        description = val;
-                      }
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 25,
-                ),
+                titleTextForm(),
+                descriptionTextForm(),
+                sizedBox(),
                 _image == null ? Container() : Image.file(File(_image!.path))
               ],
             ),
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: getImage,
-        child: const Icon(Icons.camera_alt),
+      floatingActionButton: cameraButton(),
+    );
+  }
+
+  TextFormField titleTextForm() {
+    return TextFormField(
+      autocorrect: false,
+      decoration: InputDecoration(
+        label: Text(labelTitle),
       ),
+      onChanged: (val) {
+        setState(() {
+          if (title == null) {
+            title = "";
+          } else {
+            title = val;
+          }
+        });
+      },
+    );
+  }
+
+  TextFormField descriptionTextForm() {
+    return TextFormField(
+      minLines: 2,
+      maxLines: 10,
+      autocorrect: false,
+      decoration: InputDecoration(
+        label: Text(labelDescription),
+      ),
+      onChanged: (val) {
+        setState(() {
+          if (description == null) {
+            description = "";
+          } else {
+            description = val;
+          }
+        });
+      },
+    );
+  }
+
+  SizedBox sizedBox() {
+    return SizedBox(
+      height: context.dynamicHeight(0.2),
+    );
+  }
+
+  FloatingActionButton cameraButton() {
+    return FloatingActionButton(
+      onPressed: getImage,
+      child: const Icon(Icons.camera_alt),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import "package:hive_flutter/hive_flutter.dart";
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:todoapp/view/note_list_view.dart';
+import 'view/note_list_view.dart';
 
 import 'models/note.dart';
 

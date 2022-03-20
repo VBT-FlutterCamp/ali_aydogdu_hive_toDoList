@@ -1,12 +1,15 @@
 import 'dart:io';
+import 'dart:js';
 
 import 'package:flutter/material.dart';
+import '../constants/strings.dart';
+import 'package:kartal/kartal.dart';
 
-class noteView extends StatelessWidget {
+class NoteView extends StatelessWidget {
   final String? title;
   final String? description;
   final String? imageUrl;
-  const noteView(
+  const NoteView(
       {Key? key,
       required this.title,
       required this.description,
@@ -19,27 +22,31 @@ class noteView extends StatelessWidget {
       appBar: AppBar(
         title: Text(title.toString()),
       ),
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: ListView(
-          children: [
-            Text(
-              description?.toString() ?? "",
-              style: TextStyle(fontSize: 25),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadiusDirectional.circular(50)),
-                child: imageUrl == "https://kocel.com.tr/img/notfound.png"
-                    ? Image.network("https://kocel.com.tr/img/notfound.png")
-                    : Image.file(File(imageUrl ?? ""))),
-          ],
-        ),
-      )),
+      body: listViewBuilder(),
     );
+  }
+
+  SafeArea listViewBuilder() {
+    return SafeArea(
+        child: Padding(
+      padding: EdgeInsets.all(12),
+      child: ListView(
+        children: [
+          Text(
+            description?.toString() ?? "",
+            style: TextStyle(fontSize: 25),
+          ),
+          const SizedBox(
+            height: 50,
+          ),
+          Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadiusDirectional.circular(50)),
+              child: imageUrl == noImageUrl
+                  ? Image.network(noImageUrl)
+                  : Image.file(File(imageUrl ?? ""))),
+        ],
+      ),
+    ));
   }
 }
